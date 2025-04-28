@@ -1,0 +1,84 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary w-100">
+    <div class="container-fluid">
+      <figure>
+        <a class="navbar-brand" href="/">
+          <img src="{% static 'logo/FoodOnlineLogo.png' %}" alt="FoodOnline" width="250">
+        </a>
+      </figure>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == '/' %}active{% endif %}" aria-current="{% if request.path == '/' %}page{% endif %}" href="/">
+              HOME
+            </a>
+          </li>
+  
+          <li class="nav-item">
+            <a class="nav-link {% if '/marketplace' in request.path %}active{% endif %}" aria-current="{% if '/marketplace' in request.path %}page{% endif %}" href="/marketplace">
+              MARKETPLACE
+            </a>
+          </li>
+  
+          <!-- Show Cart link only for logged-in users -->
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link {% if '/cart' in request.path %}active{% endif %}" aria-current="{% if '/cart' in request.path %}page{% endif %}" href="/cart">
+              MY CART
+            </a>
+          </li>
+          {% endif %}
+  
+          <!-- Show Account link only for logged-in users -->
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link {% if '/account' in request.path %}active{% endif %}" aria-current="{% if '/account' in request.path %}page{% endif %}" href="/account">
+              MY ACCOUNT
+            </a>
+          </li>
+          {% endif %}
+  
+          <!-- Show dashboard links based on user type -->
+          {% if user.is_authenticated and user.userType == 'Vendor' %}
+          <li class="nav-item">
+            <a class="nav-link {% if '/vendor-dashboard' in request.path %}active{% endif %}" aria-current="{% if '/vendor-dashboard' in request.path %}page{% endif %}" href="/vendor-dashboard">
+              VENDOR DASHBOARD
+            </a>
+          </li>
+          {% endif %}
+  
+          {% if user.is_authenticated and user.userType == 'Courier' %}
+          <li class="nav-item">
+            <a class="nav-link {% if '/courier-dashboard' in request.path %}active{% endif %}" aria-current="{% if '/courier-dashboard' in request.path %}page{% endif %}" href="/courier-dashboard">
+              COURIER DASHBOARD
+            </a>
+          </li>
+          {% endif %}
+  
+          <!-- Show login/register links only for non-logged-in users -->
+          {% if not user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link {% if '/login' in request.path %}active{% endif %}" aria-current="{% if '/login' in request.path %}page{% endif %}" href="{% url 'login' %}">
+              SIGN IN
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if '/register' in request.path %}active{% endif %}" aria-current="{% if '/register' in request.path %}page{% endif %}" href="{% url 'register' %}">
+              REGISTER
+            </a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="/auth/logout" id="logout-button">
+              LOGOUT
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
