@@ -1,1 +1,5 @@
 venv
+marketplace/__pycache__
+core/__pycache__
+food_delivery_web/__pycache__
+account/__pycache__
