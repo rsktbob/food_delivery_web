@@ -4,139 +4,143 @@
 {% block content %}
 
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
+<body>
+    <div class="food-app-home">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1>Delicious Food Delivered to Your Door</h1>
+                <p>Order from the best local restaurants with easy, on-demand delivery.</p>
+                <div class="search-container">
+                    <input 
+                        type="text" 
+                        class="search-input" 
+                        placeholder="Search for food, cuisines, or restaurants..." 
+                    />
+                    <button class="search-button">
+                        <b>Search</b>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Categories Section -->
+        <div class="categories-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Browse by Category</h2>
+                    <a href="#" class="view-all">View All</a>
+                </div>
+                <div class="categories">
+                    <div class="category-item">
+                        <div class="category-icon">🍔</div>
+                        <span>Burgers</span>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-icon">🍕</div>
+                        <span>Pizza</span>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-icon">🍣</div>
+                        <span>Sushi</span>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-icon">🍜</div>
+                        <span>Chinese</span>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-icon">🌮</div>
+                        <span>Mexican</span>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-icon">🥗</div>
+                        <span>Healthy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recommended Restaurants Section -->
+        <div class="restaurants-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Recommended Restaurants</h2>
+                    <a href="#" class="view-all">View All</a>
+                </div>
+                
+                <div id="restaurants-container">
+                    <!-- Restaurant cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Special Offers Section -->
+        <div class="offers-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Special Offers</h2>
+                    <a href="#" class="view-all">View All</a>
+                </div>
+                <div class="offers-banner">
+                    <div class="offer">
+                        <div class="offer-content">
+                            <h3>Get 20% OFF</h3>
+                            <p>On your first order using code: <strong>WELCOME20</strong></p>
+                            <button class="order-now-btn">Order Now</button>
+                        </div>
+                    </div>
+                    <div class="offer">
+                        <div class="offer-content">
+                            <h3>Free Delivery</h3>
+                            <p>On all orders over $25 this weekend</p>
+                            <button class="order-now-btn">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- How It Works Section -->
+        <div class="how-it-works-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>How It Works</h2>
+                </div>
+                <div class="steps-container">
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Search</h3>
+                        <p>Find your favorite restaurants or discover new ones</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3>Choose</h3>
+                        <p>Browse menus and select your favorite dishes</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h3>Pay</h3>
+                        <p>Quick and secure payment options</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="fas fa-motorcycle"></i>
+                        </div>
+                        <h3>Deliver</h3>
+                        <p>Food is prepared and delivered to your door</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class="food-app-home">
-    <!-- Hero Section -->
-    <div class="hero-section">
-        <div class="hero-content">
-            <h1>Delicious Food Delivered to Your Door</h1>
-            <p>Order from the best local restaurants with easy, on-demand delivery.</p>
-            <div class="search-container">
-                <input 
-                    type="text" 
-                    class="search-input" 
-                    placeholder="Search for food, cuisines, or restaurants..." 
-                />
-                <button class="search-button">
-                    <b>Search</b>
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Categories Section -->
-    <div class="categories-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Browse by Category</h2>
-                <a href="#" class="view-all">View All</a>
-            </div>
-            <div class="categories">
-                <div class="category-item">
-                    <div class="category-icon">🍔</div>
-                    <span>Burgers</span>
-                </div>
-                <div class="category-item">
-                    <div class="category-icon">🍕</div>
-                    <span>Pizza</span>
-                </div>
-                <div class="category-item">
-                    <div class="category-icon">🍣</div>
-                    <span>Sushi</span>
-                </div>
-                <div class="category-item">
-                    <div class="category-icon">🍜</div>
-                    <span>Chinese</span>
-                </div>
-                <div class="category-item">
-                    <div class="category-icon">🌮</div>
-                    <span>Mexican</span>
-                </div>
-                <div class="category-item">
-                    <div class="category-icon">🥗</div>
-                    <span>Healthy</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Recommended Restaurants Section -->
-    <div class="restaurants-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Recommended Restaurants</h2>
-                <a href="#" class="view-all">View All</a>
-            </div>
-            
-            <div id="restaurant-container">
-                <!-- Restaurant cards will be loaded here by JavaScript -->
-            </div>
-        </div>
-    </div>
-    
-    <!-- Special Offers Section -->
-    <div class="offers-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Special Offers</h2>
-                <a href="#" class="view-all">View All</a>
-            </div>
-            <div class="offers-banner">
-                <div class="offer">
-                    <div class="offer-content">
-                        <h3>Get 20% OFF</h3>
-                        <p>On your first order using code: <strong>WELCOME20</strong></p>
-                        <button class="order-now-btn">Order Now</button>
-                    </div>
-                </div>
-                <div class="offer">
-                    <div class="offer-content">
-                        <h3>Free Delivery</h3>
-                        <p>On all orders over $25 this weekend</p>
-                        <button class="order-now-btn">Order Now</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- How It Works Section -->
-    <div class="how-it-works-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>How It Works</h2>
-            </div>
-            <div class="steps-container">
-                <div class="step">
-                    <div class="step-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <h3>Search</h3>
-                    <p>Find your favorite restaurants or discover new ones</p>
-                </div>
-                <div class="step">
-                    <div class="step-icon">
-                        <i class="fas fa-utensils"></i>
-                    </div>
-                    <h3>Choose</h3>
-                    <p>Browse menus and select your favorite dishes</p>
-                </div>
-                <div class="step">
-                    <div class="step-icon">
-                        <i class="fas fa-credit-card"></i>
-                    </div>
-                    <h3>Pay</h3>
-                    <p>Quick and secure payment options</p>
-                </div>
-                <div class="step">
-                    <div class="step-icon">
-                        <i class="fas fa-motorcycle"></i>
-                    </div>
-                    <h3>Deliver</h3>
-                    <p>Food is prepared and delivered to your door</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    <script src="home-script.js"></script>
+</body>
+<script src="{% static 'js/home.js' %}"></script>
 {% endblock %}
