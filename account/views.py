@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 def register(request):
-    return render(request, '../templates/auth/register.html')
+    return render(request, './account/register.html')

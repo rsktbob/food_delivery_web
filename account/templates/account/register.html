@@ -41,7 +41,8 @@
             <div class="alert alert-danger" role="alert" id="error-message" style="display: none;"></div>
 
             <!-- Customer Form -->
-            <form id="customer-form" class="register-form">
+            <form id="customer-form" class="register-form" method="post" action="">
+              {% csrf_token %}
               <div class="form-group">
                 <label>First Name</label>
                 <input
@@ -117,7 +118,8 @@
             </form>
 
             <!-- Vendor Form -->
-            <form id="vendor-form" class="register-form" style="display: none;">
+            <form id="vendor-form" class="register-form" style="display: none;" method="post" action="">
+              {% csrf_token %}
               <div class="form-group">
                 <label>First Name</label>
                 <input
@@ -225,7 +227,8 @@
             </form>
 
             <!-- Courier Form -->
-            <form id="courier-form" class="register-form" style="display: none;">
+            <form id="courier-form" class="register-form" style="display: none;" method="post" action="">
+              {% csrf_token %}
               <div class="form-group">
                 <label>First Name</label>
                 <input
