@@ -1,6 +1,10 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+<<<<<<< HEAD
 from account.models import BaseUser, CustomerProfile, CourierProfile, VendorProfile
+=======
+from models import BaseUser, CustomerProfile, CourierProfile, VendorProfile
+>>>>>>> main
 
 class BaseRegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -12,7 +16,11 @@ class BaseRegisterForm(UserCreationForm):
 
 class CustomerRegisterForm(BaseRegisterForm):
     save_address = forms.CharField(max_length=255)
+<<<<<<< HEAD
     default_payment_method = forms.CharField(max_length=20, required=False)
+=======
+    default_payment_method = forms.CharField(max_length=20, blank=True)
+>>>>>>> main
     
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -28,7 +36,11 @@ class CustomerRegisterForm(BaseRegisterForm):
 
 class VendorRegisterForm(BaseRegisterForm):
     restaurant_name = forms.CharField(max_length=100, required=True)
+<<<<<<< HEAD
     bank_account_details = forms.CharField(required=False)
+=======
+    bank_account_details = forms.TextInput(requires=False)
+>>>>>>> main
 
 
     def save(self, commit=True):
@@ -45,7 +57,11 @@ class VendorRegisterForm(BaseRegisterForm):
 
 class CourierRegisterForm(BaseRegisterForm):
     vehicle_type = forms.CharField(max_length=50, required=True)
+<<<<<<< HEAD
     license_plate = forms.CharField(max_length=20, required=False)
+=======
+    license_plate = forms.TextInput(max_length=20, blank=True)
+>>>>>>> main
     def save(self, commit=True):
         user = super().save(commit=False)
         user.user_type = 'courier'
