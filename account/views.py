@@ -43,18 +43,7 @@ class CustomLoginView(LoginView):
         
         # Redirect based on user type
         user = self.request.user
-        if user.is_customer():
-            return redirect('customer_dashboard')
-        elif user.is_vendor():
-            return redirect('vendor_dashboard')
-        elif user.is_courier():
-            return redirect('courier_dashboard')
-        else:
-            logout(self.request)
-            messages.error(self.request, 'Invalid user type')
-            return redirect('login')
-        
-        return response
+        return redirect('home')
     
     def form_invalid(self, form):
         messages.error(self.request, 'Login failed. Please check your username and password.')
