@@ -25,7 +25,7 @@
           </li>
    -->
           <!-- Show Cart link only for logged-in users -->
-          {% if user.is_authenticated %}
+          {% if user.is_authenticated and user.userType == 'Customer' %}
           <li class="nav-item">
             <a class="nav-link {% if '/cart' in request.path %}active{% endif %}" aria-current="{% if '/cart' in request.path %}page{% endif %}" href="/cart">
               MY CART
@@ -67,7 +67,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if '/register' in request.path %}active{% endif %}" aria-current="{% if '/register' in request.path %}page{% endif %}" href="/register">
+            <a class="nav-link {% if '/register' in request.path %}active{% endif %}" aria-current="{% if '/register' in request.path %}page{% endif %}" href="{% url 'register' %}">
               REGISTER
             </a>
           </li>

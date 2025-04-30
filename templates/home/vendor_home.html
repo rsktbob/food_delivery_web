@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="vendor-dashboard">
+    <div class="dashboard-header">
+        <h1>Restaurant Dashboard</h1>
+        <p>Manage your orders and restaurant operations</p>
+    </div>
+
+    <div class="dashboard-stats">
+        <div class="stat-card">
+            <i class="fas fa-utensils"></i>
+            <h3>Pending Orders</h3>
+            <p id="pending-count">0</p>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-check-circle"></i>
+            <h3>Accepted Orders</h3>
+            <p id="accepted-count">0</p>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-truck"></i>
+            <h3>In Delivery</h3>
+            <p id="delivery-count">0</p>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-flag-checkered"></i>
+            <h3>Completed Today</h3>
+            <p id="completed-count">0</p>
+        </div>
+    </div>
+
+    <div class="orders-container">
+        <div class="orders-header">
+            <h2>Incoming Orders</h2>
+            <button id="refresh-orders" class="btn-refresh">
+                <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+        </div>
+        
+        <div class="order-tabs">
+            <button class="tab-button active" data-status="all">All Orders</button>
+            <button class="tab-button" data-status="Created">Pending</button>
+            <button class="tab-button" data-status="Accepted">Accepted</button>
+            <button class="tab-button" data-status="Assigned">Assigned</button>
+            <button class="tab-button" data-status="Picked_Up">Picked Up</button>
+            <button class="tab-button" data-status="Finish">Completed</button>
+        </div>
+
+        <div class="orders-list" id="orders-list">
+            <!-- Orders will be populated here dynamically -->
+            <div class="no-orders-message">
+                <i class="fas fa-coffee"></i>
+                <p>No orders at the moment. Take a break!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Order Detail Modal -->
+<div class="modal" id="order-detail-modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>Order Details</h2>
+        <div class="order-detail-content">
+            <!-- Order details will be populated here -->
+        </div>
+        <div class="modal-actions">
+            <button id="accept-order-btn" class="btn-accept">Accept Order</button>
+            <button id="reject-order-btn" class="btn-reject">Reject Order</button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast-notification" class="toast-notification">
+    <span id="toast-message"></span>
+</div>
+
+<!-- Include CSS and JS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="{% static 'css/vendor_home.css' %}">
+<script src="{% static 'js/vendor_home.js' %}"></script>
+{% endblock %}

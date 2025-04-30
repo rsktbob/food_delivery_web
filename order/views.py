@@ -98,8 +98,9 @@ class OrderManageHandler:
             return JsonResponse({'status': 'success', 'message': 'Order accepted successfully.'})
         else:
             return JsonResponse({'status': 'error', 'message': 'Failed to accept the order.'})
-        
+
     @classmethod
+    # vendor finish order
     def finishOrder(cls, request):
         success = cls.VendorOrderService.finish_restaurant_order(request)
         if success:
