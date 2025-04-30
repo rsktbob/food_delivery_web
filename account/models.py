@@ -69,7 +69,6 @@ class CourierProfile(models.Model):
 
 class VendorProfile(models.Model):
     user = models.OneToOneField(BaseUser, on_delete=models.CASCADE, related_name='vendor_profile')
-    bank_account_details = models.CharField(blank=True)
     restaurant_name = models.CharField(max_length=20)
     
     def __str__(self):

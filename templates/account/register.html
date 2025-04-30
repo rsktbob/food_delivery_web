@@ -39,15 +39,23 @@
 
           <div class="form-body">
             <div class="alert alert-danger" role="alert" id="error-message" style="display: none;"></div>
+            
+            <!-- {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %} -->
 
             <!-- Customer Form -->
-            <form id="customer-form" class="register-form" method="post" action="">
+            <form id="customer-form" class="register-form" method="post" action="{% url 'register' user_type='customer' %}">
               {% csrf_token %}
               <div class="form-group">
                 <label>First Name</label>
                 <input
                   type="text"
-                  name="firstName"
+                  name="first_name"
                   class="form-control"
                   placeholder="Enter your first name"
                   required
@@ -58,7 +66,7 @@
                 <label>Last Name</label>
                 <input
                   type="text"
-                  name="lastName"
+                  name="last_name"
                   class="form-control"
                   placeholder="Enter your last name"
                   required
@@ -69,7 +77,7 @@
                 <label>Address</label>
                 <input
                   type="text"
-                  name="deliveryAddress"
+                  name="save_address"
                   class="form-control"
                   placeholder="Enter your address"
                   required
@@ -88,10 +96,21 @@
               </div>
 
               <div class="form-group">
+                <label>Payment Method</label>
+                <input
+                  type="text"
+                  name="default_payment_method"
+                  class="form-control"
+                  placeholder="Enter your payment method"
+                  required
+                />
+              </div>
+              
+              <div class="form-group">
                 <label>Username</label>
                 <input
                   type="text"
-                  name="userName"
+                  name="username"
                   class="form-control"
                   placeholder="Create username"
                   required
@@ -108,7 +127,7 @@
                   required
                 />
               </div>
-              
+
               <button 
                 type="submit" 
                 class="btn btn-register"
@@ -118,13 +137,13 @@
             </form>
 
             <!-- Vendor Form -->
-            <form id="vendor-form" class="register-form" style="display: none;" method="post" action="">
+            <form id="vendor-form" class="register-form" style="display: none;" method="post" action="{% url 'register' user_type='vendor' %}">
               {% csrf_token %}
               <div class="form-group">
                 <label>First Name</label>
                 <input
                   type="text"
-                  name="firstName"
+                  name="first_name"
                   class="form-control"
                   placeholder="Enter your first name"
                   required
@@ -135,7 +154,7 @@
                 <label>Last Name</label>
                 <input
                   type="text"
-                  name="lastName"
+                  name="last_name"
                   class="form-control"
                   placeholder="Enter your last name"
                   required
@@ -146,7 +165,7 @@
                 <label>Restaurant Name</label>
                 <input
                   type="text"
-                  name="restaurantName"
+                  name="restaurant_name"
                   class="form-control"
                   placeholder="Enter your restaurant name"
                   required
@@ -157,7 +176,7 @@
                 <label>Restaurant Address</label>
                 <input
                   type="text"
-                  name="restaurantAddress"
+                  name="restaurant_address"
                   class="form-control"
                   placeholder="Enter your restaurant address"
                   required
@@ -168,7 +187,7 @@
                 <label>Restaurant License Number</label>
                 <input
                   type="text"
-                  name="restaurantLicenseNumber"
+                  name="restaurant_license_number"
                   class="form-control"
                   placeholder="Enter restaurant license number"
                   required
@@ -200,7 +219,7 @@
                 <label>Username</label>
                 <input
                   type="text"
-                  name="userName"
+                  name="username"
                   class="form-control"
                   placeholder="Create username"
                   required
@@ -227,13 +246,13 @@
             </form>
 
             <!-- Courier Form -->
-            <form id="courier-form" class="register-form" style="display: none;" method="post" action="">
+            <form id="courier-form" class="register-form" style="display: none;" method="post" action="{% url 'register' user_type='courier' %}">
               {% csrf_token %}
               <div class="form-group">
                 <label>First Name</label>
                 <input
                   type="text"
-                  name="firstName"
+                  name="first_name"
                   class="form-control"
                   placeholder="Enter your first name"
                   required
@@ -244,7 +263,7 @@
                 <label>Last Name</label>
                 <input
                   type="text"
-                  name="lastName"
+                  name="last_name"
                   class="form-control"
                   placeholder="Enter your last name"
                   required
@@ -266,7 +285,7 @@
                 <label>Vehicle Type</label>
                 <input
                   type="text"
-                  name="vehicleType"
+                  name="vehicle_type"
                   class="form-control"
                   placeholder="Enter your vehicle type"
                   required
@@ -277,7 +296,7 @@
                 <label>License Plate</label>
                 <input
                   type="text"
-                  name="licensePlate"
+                  name="license_plate"
                   class="form-control"
                   placeholder="Enter your vehicle license plate"
                   required
@@ -288,7 +307,7 @@
                 <label>Username</label>
                 <input
                   type="text"
-                  name="userName"
+                  name="username"
                   class="form-control"
                   placeholder="Create username"
                   required
@@ -305,6 +324,7 @@
                   required
                 />
               </div>
+
               <button 
                 type="submit" 
                 class="btn btn-register"

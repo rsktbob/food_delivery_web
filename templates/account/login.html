@@ -14,15 +14,23 @@
           </div>
 
           <div class="form-body">
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
             <div class="alert alert-danger" role="alert" id="error-message" style="display: none;"></div>
             
-            <form id="login-form" method="post" action="">
+            <form id="login-form" method="post" action="{% url 'login' %}">
               {% csrf_token %}
               <div class="form-group">
                 <label>Username</label>
                 <input 
                   type="text" 
-                  name="userName" 
+                  name="username" 
                   class="form-control" 
                   placeholder="Enter your username"
                   required

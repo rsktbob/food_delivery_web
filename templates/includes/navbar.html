@@ -18,12 +18,12 @@
             </a>
           </li>
   
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link {% if '/marketplace' in request.path %}active{% endif %}" aria-current="{% if '/marketplace' in request.path %}page{% endif %}" href="/marketplace">
               MARKETPLACE
             </a>
           </li>
-  
+   -->
           <!-- Show Cart link only for logged-in users -->
           {% if user.is_authenticated %}
           <li class="nav-item">
@@ -67,16 +67,17 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if '/register' in request.path %}active{% endif %}" aria-current="{% if '/register' in request.path %}page{% endif %}" href="{% url 'register' %}">
+            <a class="nav-link {% if '/register' in request.path %}active{% endif %}" aria-current="{% if '/register' in request.path %}page{% endif %}" href="/register">
               REGISTER
             </a>
           </li>
           {% else %}
           <li class="nav-item">
-            <a class="nav-link" href="/logout" id="logout-button">
-              LOGOUT
-            </a>
-          </li>
+            <form method="post" action="{% url 'logout' %}" style="display: inline;">
+              {% csrf_token %}
+              <button type="submit" class="nav-link btn btn-link">LOGOUT</button>
+            </form>
+          </li>          
           {% endif %}
         </ul>
       </div>

@@ -42,11 +42,11 @@ class CartItem(models.Model):
 
 class Order(models.Model):
     ORDER_STATUS_CHOICES = (
-        ('Created', 'Created'),
-        ('Accepted', 'Confirmed by Restaurant'),
-        ('Assigned', 'Assigned to Courier'),
-        ('Picked_Up', 'Picked Up'),
-        ('Delivered', 'Delivered'),
+        ('Created', 'Created'), # 這是顧客創建訂單時，order為created
+        ('Accepted', 'Confirmed by Restaurant'),#餐廳接受
+        ('Assigned', 'Assigned to Courier'),#有外送員接單
+        ('Picked_Up', 'Picked Up'),#外送員拿到餐點
+        ('Finish', 'Finish'),#外送員送到餐點
     )
 
     
@@ -59,7 +59,6 @@ class Order(models.Model):
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     delivery_fee = models.DecimalField(max_digits=6, decimal_places=2)
     is_paid = models.BooleanField(default=False)
-    estimated_delivery_time = models.DateTimeField(null=True, blank=True)
     
     def __str__(self):
         return f"Order #{self.id} - {self.customer.username}"
