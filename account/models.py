@@ -68,24 +68,9 @@ class CourierProfile(models.Model):
         return f"Courier: {self.user.username}"
 
 class VendorProfile(models.Model):
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='vendor_profile')
-    business_name = models.CharField(max_length=255)
-    business_registration_number = models.CharField(max_length=50, blank=True)
-    tax_identification_number = models.CharField(max_length=50, blank=True)
-    verification_status = models.BooleanField(default=False)
-    bank_account_details = models.TextField(blank=True)
-=======
     user = models.OneToOneField(BaseUser, on_delete=models.CASCADE, related_name='vendor_profile')
     bank_account_details = models.CharField(blank=True)
     restaurant_name = models.CharField(max_length=20)
->>>>>>> Stashed changes
-=======
-    user = models.OneToOneField(BaseUser, on_delete=models.CASCADE, related_name='vendor_profile')
-    bank_account_details = models.TextField(blank=True)
-    restaurant_name = models.CharField(max_length=20)
->>>>>>> main
     
     def __str__(self):
         return f"Vendor: {self.user.username}"
