@@ -1,9 +1,6 @@
 from typing import List
 from models import Order
-<<<<<<< HEAD
 from account.models import BaseUser, CustomerProfile, CourierProfile, VendorProfile
-=======
->>>>>>> main
 
 class OrderService:
     def set_order_state(order_id, state):
@@ -13,7 +10,6 @@ class OrderService:
         pass
 
 class CustomerOrderService(OrderService):
-<<<<<<< HEAD
     def create_order(user_id,):
         # customer = get_object_or_404(CustomerProfile, user_id=user_id)
         # order = Order.objects.create(
@@ -26,9 +22,6 @@ class CustomerOrderService(OrderService):
         #     delivery_fee=delivery_fee,
         #     estimated_delivery_time=timezone.now() + timedelta(minutes=45)
         # )
-=======
-    def create_order(user_id):
->>>>>>> main
         pass
 
 class VendorOrderService(OrderService):

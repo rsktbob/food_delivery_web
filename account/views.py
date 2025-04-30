@@ -1,20 +1,9 @@
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-from django.shortcuts import render
-=======
-=======
->>>>>>> main
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import logout
 from django.contrib import messages
-<<<<<<< HEAD
 from django.views import View 
 from account.forms import CustomerRegisterForm, VendorRegisterForm, CourierRegisterForm
->>>>>>> Stashed changes
-=======
-from forms import CustomerRegisterForm, VendorRegisterForm, CourierRegisterForm
->>>>>>> main
 
 def register(request):
     return render(request, './account/register.html')
