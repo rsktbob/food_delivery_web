@@ -108,6 +108,10 @@ class OrderManageHandler:
         else:
             return JsonResponse({'status': 'error', 'message': 'Failed to finish the order.'})
 
+class CourierOrderHandler:
+    CourierOrderService = CourierOrderService()
+    
+
 # @login_required
 # def add_to_shopping_cart(request):
 #     if request.method != 'POST':
