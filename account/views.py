@@ -8,7 +8,7 @@ from account.forms import CustomerRegisterForm, VendorRegisterForm, CourierRegis
 class RegisterView(View):
     user_type = None  # 透過 URL 傳入的參數
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         return render(request, 'account/register.html')
 
     def post(self, request, *args, **kwargs):

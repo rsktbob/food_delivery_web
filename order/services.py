@@ -12,6 +12,7 @@ class OrderService:
         try:
             order = Order.objects.get(id=order_id)
             order.status = status
+            order.save()
             return True
         except:
             return False
@@ -54,7 +55,7 @@ class VendorOrderService(OrderService):
     
     def accept_restaurant_order(self, order_id) -> bool:
         return self.set_order_state(order_id, 'Accepted')
-
+    
 
 class CourierOrderService(OrderService):
     def search_nearby_order(self) -> List[Order]: #導航先不寫
