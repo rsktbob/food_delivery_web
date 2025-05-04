@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-<form method="post" action="">
+<form method = "POST" action="">
     {% csrf_token %}
     {{form.as_p}}
-    <button type="submit">保存</button>
+    <button type = "submit">送出</button>
 </form>
+
 {% endblock content %}

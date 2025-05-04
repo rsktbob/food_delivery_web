@@ -3,13 +3,13 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.db import transaction
-from .models import Cart, CartItem, CartItemCustomization, Order, OrderItem, OrderItemCustomization
-from Restaurant.models import Restaurant, MenuItem, CustomizationChoice
-from account.models import Address, CourierProfile, BaseUser
+from .models import Cart, CartItem, Order, OrderItem
+from Restaurant.models import Restaurant, MenuItem
+from account.models import CourierProfile, BaseUser
 from django.utils import timezone
 import json
-from services import *
-
+from .services import *
+from .forms import OrderForm
 class OrderManageHandler:
     CustomerOrderService = CustomerOrderService()
     VendorOrderService = VendorOrderService()
@@ -17,19 +17,12 @@ class OrderManageHandler:
 
     @classmethod
     def createOrder(cls, request):
-        user = request.user
-        user_id = user.id
-        
-        cart = Cart.objects.get(customer=user)
-
-        # 呼叫服務層創建訂單
-        success = cls.CustomerOrderService.create_order(order_info)
-
-        # 返回相應的 JsonResponse
-        if success:
-            return JsonResponse({'status': 'success', 'message': 'Order created successfully!'})
-        else:
-            return JsonResponse({'status': 'error', 'message': 'Failed to create order.'}, status=400)
+        if request.method == "GET":
+            form = OrderForm()
+            context = {"form" : form}
+            return render(request, "order/create_order.html", context)
+        elif request.method == "POST":
+            pass
   
     @classmethod
     def setOrderState(cls, request):

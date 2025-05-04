@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block  content %}
+{% include "head_bar.html" %}
 <h1>customer home test</h1>
 <form method="post" action="{% url 'logout' %}">
     {% csrf_token %}
@@ -19,23 +20,6 @@
     {% endfor %}
 </div>
 
-<hr class="my-4 border-dark">
-<div>
-    <h2>購物車</h2>
-    {% for cart in carts %}
-        {% for  cart_item in cart.cart_items.all %}
-            <div>
-                <p>{{cart_item}}</p>
-            </div>
-        {% endfor %}
-    {% endfor %}
 
-    <form hx-post="" hx-target="#order-message" hx-swap="innerHTML">
-        {% csrf_token %}
-        <button type>送出</button>
-    </form>
-
-    <div id="order-message">可以送出訂單</div>
-</div>
 
 {% endblock content%}

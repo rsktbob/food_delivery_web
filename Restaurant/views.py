@@ -128,7 +128,6 @@ class RestaurantManegHandler:
     @classmethod
     def AddMenuItem(cls, request, restaurant_id):
         restaurant = get_object_or_404(Restaurant, id=restaurant_id)
-
         form = MenuItemForm(request.POST, request.FILES)
 
         if form.is_valid():
@@ -155,6 +154,12 @@ class RestaurantManegHandler:
         cart_item = CartItem(cart=cart, menu_item_id=menu_item_id)
         cart_item.save()
         return HttpResponse("成功點餐")
-        
+    
+    @classmethod
+    def EnterShoppingCart(cls, request):
+        customer = request.user.customer_profile
 
+        carts = Cart.objects.filter(customer=customer)
+        context = {"carts" : carts}
+        return render(request, "Restaurant/shopping_cart.html", context)
 
