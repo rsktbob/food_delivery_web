@@ -19,26 +19,8 @@ class OrderManageHandler:
     def createOrder(cls, request):
         user = request.user
         user_id = user.id
-
-        # 從前端取得資料
-        restaurant_id = request.POST.get('restaurant_id')
-        delivery_address = request.POST.get('delivery_address')
-        total_price = float(request.POST.get('total_price', 0))  # 默認為 0
-        payment_method = request.POST.get('payment_method')
-        delivery_fee = float(request.POST.get('delivery_fee', 0))  # 默認為 0
-
-        # 根據 restaurant_id 取得對應的餐廳實例
-        restaurant = get_object_or_404(Restaurant, id=restaurant_id)
-
-        # 創建訂單信息字典
-        order_info = {
-            'user_id': user_id,
-            'restaurant_id': restaurant,
-            'delivery_address': delivery_address,
-            'total_price': total_price,
-            'payment_method': payment_method,
-            'delivery_fee': delivery_fee
-        }
+        
+        cart = Cart.objects.get(customer=user)
 
         # 呼叫服務層創建訂單
         success = cls.CustomerOrderService.create_order(order_info)

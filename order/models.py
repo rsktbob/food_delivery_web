@@ -3,8 +3,8 @@ from account.models import CustomerProfile, CourierProfile, VendorProfile
 from Restaurant.models import Restaurant, MenuItem
 
 class Cart(models.Model):
-    customer = models.OneToOneField(CustomerProfile, on_delete=models.CASCADE, related_name='cart')
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=True, blank=True)
+    customer = models.ForeignKey(CustomerProfile, on_delete=models.CASCADE, related_name='cart')
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name="restaurant")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -20,7 +20,7 @@ class Cart(models.Model):
         return sum(item.get_total_price() for item in self.cartitem_set.all())
 
 class CartItem(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="cart_items")
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     special_instructions = models.TextField(blank=True)
@@ -32,6 +32,19 @@ class CartItem(models.Model):
         item_price = self.menu_item.price
         # customizations_price = sum(c.choice.additional_price for c in self.cartitemcustomization_set.all())
         return item_price * self.quantity
+    
+    def save(self, *args, **kwargs):
+        existing_item = CartItem.objects.filter(cart=self.cart, menu_item=self.menu_item).first()
+
+        if existing_item:
+            CartItem.objects.filter(pk=existing_item.pk).update(
+                quantity=existing_item.quantity + self.quantity
+            )
+            print(existing_item.quantity, self.quantity)
+        else:
+            super().save(*args, **kwargs)
+
+    
 
 # class CartItemCustomization(models.Model):
 #     cart_item = models.ForeignKey(CartItem, on_delete=models.CASCADE)

@@ -1,10 +1,14 @@
-# from django.shortcuts import render, get_object_or_404
-# from django.http import JsonResponse
-# from django.db.models import Q
-# from django.contrib.auth.decorators import login_required
-# from .models import Restaurant, MenuItem, FoodCategory, CustomizationOption
-# from django.conf import settings
-# import math
+from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
+from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+import math
+from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Restaurant
+from .forms import *
+from order.models import CartItem, Cart
+from django.http import HttpResponse
 
 # def calculate_distance(lat1, lon1, lat2, lon2):
 #     # Haversine formula to calculate distance between two points
@@ -110,3 +114,47 @@
 # def manage_menu(request, restaurant_id):
 #     # Implementation for restaurant owners to manage their menu
 #     pass
+
+
+class RestaurantManegHandler:
+    @classmethod
+    def EnterRestaurant(cls, request):
+        restaurant_id = request.GET.get('restaurant_id')
+        restaurant = Restaurant.objects.get(id=restaurant_id)
+        menu_items = restaurant.menu_items.all()
+        context = {'restaurant' : restaurant, "menu_items" : menu_items}
+        return render(request, "Restaurant/restaurant.html", context)      
+    
+    @classmethod
+    def AddMenuItem(cls, request, restaurant_id):
+        restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+
+        form = MenuItemForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            menu_item = form.save(commit=False)
+            menu_item.restaurant = restaurant
+            menu_item.save()
+
+        menu_items = restaurant.menu_items.all()
+        print(menu_items)
+        context = {"menu_items" : menu_items}
+        return render(request, "Restaurant/menu_items.html", context)
+    
+    @classmethod
+    def AddCartItem(cls, request, menu_item_id):
+        menu_item = MenuItem.objects.get(id=menu_item_id)
+        restaurant = menu_item.restaurant
+        customer = request.user.customer_profile
+
+        cart = Cart.objects.filter(customer=customer, restaurant=restaurant).first()
+        if cart == None:
+            cart = Cart(customer=customer, restaurant=restaurant)
+            cart.save()
+        
+        cart_item = CartItem(cart=cart, menu_item_id=menu_item_id)
+        cart_item.save()
+        return HttpResponse("成功點餐")
+        
+
+

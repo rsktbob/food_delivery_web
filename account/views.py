@@ -8,12 +8,18 @@ from account.forms import CustomerRegisterForm, VendorRegisterForm, CourierRegis
 class RegisterView(View):
     user_type = None  # 透過 URL 傳入的參數
 
-    def get(self, request, *args, **kwargs):
-        return render(request, 'account/register.html')
+    def get(self, request, user_type):
+        if user_type == 'customer':
+            form = CustomerRegisterForm()
+        elif user_type == 'vendor':
+            form = VendorRegisterForm()
+        elif user_type == 'courier':
+            form = CourierRegisterForm()
+        
+        context = {'form' : form}
+        return render(request, 'account/register.html', context)
 
-    def post(self, request, *args, **kwargs):
-        user_type = kwargs.get('user_type')  # 從 URL 抓取參數
-
+    def post(self, request, user_type):
         if user_type == 'customer':
             form = CustomerRegisterForm(request.POST)
         elif user_type == 'vendor':
@@ -21,28 +27,24 @@ class RegisterView(View):
         elif user_type == 'courier':
             form = CourierRegisterForm(request.POST)
         else:
-            messages.error(request, "Invalid user type")
             return redirect('register')
 
         if form.is_valid():
             form.save()
-            messages.success(request, 'Registration successful! You can now log in.')
             return redirect('login')
         else:
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"{field}: {error}")
-            return render(request, 'account/register.html', {'form': form})
+            context = {'form' : form}
+            return render(request, 'account/register.html', context)
 
 class CustomLoginView(LoginView):
     template_name = 'account/login.html'
     
     def form_valid(self, form):
         # First execute parent login logic
-        response = super().form_valid(form)
-        
-        # Redirect based on user type
-        user = self.request.user
+        super().form_valid(form)
         return redirect('home')
     
     def form_invalid(self, form):

@@ -9,6 +9,7 @@ class Restaurant(models.Model):
     phone_number = models.CharField(max_length=15)
     rating = models.FloatField(default=0)
     total_ratings = models.IntegerField(default=0)
+    image = models.ImageField(upload_to='restaurant_images/', default='restaurant_images/default_restaurant.jpg')
     
     def __str__(self):
         return self.name
@@ -26,11 +27,12 @@ class MenuItem(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='menu_items')
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=8, decimal_places=2)
-    image = models.ImageField(upload_to='menu_items/', blank=True, null=True)
+    image = models.ImageField(upload_to='menu_items/')
     category = models.ForeignKey(FoodCategory, on_delete=models.SET_NULL, null=True, related_name='menu_items')
     
     def __str__(self):
         return f"{self.name} - {self.restaurant.name}"
+
 
 # class CustomizationOption(models.Model):
 #     OPTION_TYPE_CHOICES = (
