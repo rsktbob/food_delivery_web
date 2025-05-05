@@ -69,12 +69,12 @@ class Order(models.Model):
     delivery_address = models.CharField(max_length=255)
     status = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES, default='Created')
     payment_method = models.CharField(max_length=20)
-    total_price = models.DecimalField(max_digits=10, decimal_places=2)
-    delivery_fee = models.DecimalField(max_digits=6, decimal_places=2)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    delivery_fee = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     is_paid = models.BooleanField(default=False)
     
     def __str__(self):
-        return f"Order #{self.id} - {self.customer.username}"
+        return f"Order #{self.id} - {self.customer.user.username}"
     
     def calculate_totals(self):
         self.total_price = sum(item.get_total_price() for item in self.items.all())

@@ -10,19 +10,41 @@ from django.utils import timezone
 import json
 from .services import *
 from .forms import OrderForm
+from django.shortcuts import redirect
+
 class OrderManageHandler:
     CustomerOrderService = CustomerOrderService()
     VendorOrderService = VendorOrderService()
     CourierOrderService = CourierOrderService()
 
     @classmethod
-    def createOrder(cls, request):
+    def createOrder(cls, request, restaurant_id):
         if request.method == "GET":
             form = OrderForm()
             context = {"form" : form}
             return render(request, "order/create_order.html", context)
         elif request.method == "POST":
-            pass
+            customer = request.user.customer_profile
+            restaurant = Restaurant.objects.get(id=restaurant_id)
+            cart = Cart.objects.filter(customer=customer, restaurant=restaurant).first()
+            cart_items = cart.cart_items.all()
+            
+            form = OrderForm(request.POST)
+            if form.is_valid() and not cart_items:
+                order = form.save(commit=False)
+                
+                order.total_price = sum(cart_item.get_total_price() for cart_item in cart_items)
+                order.restaurant = restaurant
+                order.customer = customer
+                order.save()                
+                cart.delete()
+                print(order)
+                
+                return redirect("home")
+            else:
+                form = OrderForm()
+                context = {"form" : form}
+                return render(request, "order/create_order.html", context)
   
     @classmethod
     def setOrderState(cls, request):
@@ -82,10 +104,14 @@ class OrderManageHandler:
             return JsonResponse({'status': 'success', 'message': 'Order finished successfully.'})
         else:
             return JsonResponse({'status': 'error', 'message': 'Failed to finish the order.'})
-
-class CourierOrderHandler:
-    CourierOrderService = CourierOrderService()
-    
+        
+    @classmethod
+    def enterOrderManagePage(cls, request):
+        customer = request.user.customer_profile
+        
+        orders = Order.objects.filter(customer=customer)
+        context = {"orders" : orders}
+        return render(request, "order/order_mange_page.html", context)
 
 # @login_required
 # def add_to_shopping_cart(request):
